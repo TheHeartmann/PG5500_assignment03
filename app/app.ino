@@ -1,42 +1,18 @@
-const int OUTPIN = A5;
-Servo myservo;  // create servo object to control a servo
+int led = D7; // The on-board LED
 
-int servoPos = 0;
-
-int pos = 0;    // variable to store the servo position
-
-void setup() {
-  myservo.attach(OUTPIN);  // attaches the servo on pin OUTPIN to the servo object
-
-  Particle.function("servo", servoControl);
-  Particle.function("lock", lock);
-  Particle.function("unlock", unlock);
-  Particle.variable("servoPos", &servoPos, INT);
-}
-
-int servoControl(String command) {
-    const auto newPos = command.toInt();
-
-    servoPos = constrain(newPos, 0, 180);
-
-    myservo.write(servoPos);
-
-    return 1;
-}
-
-int lock(String command)
+void setup()
 {
-    turnServo(0);
-    return 1;
+    pinMode(led, OUTPUT);
 }
 
-int unlock(String command) {
-    turnServo(160);
-    return 1;
-}
-
-void turnServo(int position)
+void loop()
 {
-    servoPos = constrain(position, 0, 160);
-    myservo.write(servoPos);
+    digitalWrite(led, HIGH); // Turn ON the LED
+
+    String temp = String(random(-5, 7));
+    Particle.publish("temp", temp, PRIVATE);
+    delay(5000); // Wait for 5 seconds
+
+    digitalWrite(led, LOW); // Turn OFF the LED
+    delay(5000);           // Wait for 5 seconds
 }
