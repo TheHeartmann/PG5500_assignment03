@@ -109,3 +109,6 @@ $RECYCLE.BIN/
 
 # Added to avoid .zip issues
 *.zip
+
+# We don't really want to commit binaries.
+*.bin
