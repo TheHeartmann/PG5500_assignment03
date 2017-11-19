@@ -1,0 +1,69 @@
+{
+    "version": "2.0.0",
+    "args": [],
+    "echoCommand": true,
+    "tasks": [{
+            "label": "compile",
+            "command": "particle compile",
+            "args": [
+                "photon",
+                "${workspaceRoot}",
+                "--saveTo",
+                "${workspaceRoot}/firmware.bin"
+            ],
+            // Use the standard less compilation problem matcher.
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceRoot}"
+                ],
+                "pattern": {
+                    "regexp": "^(.*?):(\\d+):(\\d+):\\s+(warning|error|fatal error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                },
+                "severity": "error"
+            },
+            "type": "shell",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "flash",
+            "args": [
+                // for cloud flashing
+                "320023001747343438323536",
+                // for usb flashing
+                // "--usb",
+                "firmware.bin"
+            ],
+            "command": "particle flash",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            // "group": {
+            //     "kind": "test",
+            //     "isDefault": true
+            // },
+            "type": "shell",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared"
+            },
+            "dependsOn": [
+                "compile"
+            ]
+        }
+    ]
+}
