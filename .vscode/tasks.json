@@ -50,10 +50,6 @@
                 "kind": "build",
                 "isDefault": true
             },
-            // "group": {
-            //     "kind": "test",
-            //     "isDefault": true
-            // },
             "type": "shell",
             "presentation": {
                 "echo": true,
@@ -64,6 +60,24 @@
             "dependsOn": [
                 "compile"
             ]
+        },
+        {
+            "label": "flash tinker",
+            "args": [
+                // for cloud flashing
+                // "320023001747343438323536",
+                // for usb flashing
+                "--usb",
+                "tinker"
+            ],
+            "command": "particle flash",
+            "type": "shell",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared"
+            }
         }
     ]
 }
