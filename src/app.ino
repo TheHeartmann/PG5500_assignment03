@@ -3,10 +3,10 @@
 #define dc D0
 #define rst NO_RST_PIN
 
-#include "Adafruit_mfGFX.h"  // Core graphics library
-#include "Adafruit_ST7735.h" // Hardware-specific library
+#include "Adafruit_mfGFX.h"
+#include "Adafruit_ST7735.h"
 #include "fonts.h"
-#include "StatsScreen.h"
+#include "StepScreen.h"
 #include "Color.h"
 #include "Rectangle.h"
 #include "Vec.h"
@@ -23,17 +23,17 @@ void setup()
 
     // background.lerp(ST7735_WHITE, ST7735_GREEN, 0);
 
-    tft.fillScreen(ST7735_RED);
+    tft.fillScreen(ST7735_COLMOD);
     //    tft.fillScreen(background.asRGB565());
 
     // rotate the screen appropriately
     tft.setRotation(3);
     tft.setFont(CENTURY_8);
 
-    auto stats = StatsScreen(tft);
-    stats.draw();
+    auto steps = StepScreen(tft);
+    steps.render();
 
-    Rectangle::draw({tft.width() - 20, 20}, {10, tft.height() - 30}, tft, ST7735_WHITE, .5f);
+    Drawing::Rectangle::draw({tft.width() - 20, 20}, {10, tft.height() - 30}, tft, ST7735_WHITE, .5f);
 
     // tft.setCursor(0, 0);
     // tft.print(rgb.r)

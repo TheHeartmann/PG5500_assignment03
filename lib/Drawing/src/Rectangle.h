@@ -1,43 +1,43 @@
 #pragma once
 
-#include "Adafruit_mfGFX.h"  // Core graphics library
-#include "Adafruit_ST7735.h" // Hardware-specific library
+#include <cmath>
+#include "Adafruit_mfGFX.h"
+#include "Adafruit_ST7735.h"
 #include "Vec.h"
+#include "Drawing.h"
 
-struct Rectangle
+namespace Drawing
 {
-    int width;
-    int height;
-
-    static void draw(const Rectangle &rect, const Vec &pos, Adafruit_ST7735 &tft, const uint16_t color, double fillPercentage = 0)
+    struct Rectangle
     {
-        Vec topLeft = {pos.x, pos.y};
-        Vec topRight = {pos.x + rect.width, pos.y};
-        Vec bottomLeft = {pos.x, pos.y + rect.height};
-        Vec bottomRight = {pos.x + rect.width, pos.y + rect.height};
+        int width;
+        int height;
 
-        drawLine(topLeft, topRight, tft, color);       // top
-        drawLine(bottomLeft, bottomRight, tft, color); // bottom
-        drawLine(topLeft, bottomLeft, tft, color);     // left
-        drawLine(topRight, bottomRight, tft, color);   // right
+        static void draw(const Rectangle &rect, const Vec &pos, Adafruit_ST7735 &tft, const uint16_t color, double fillPercentage = 0)
+        {
+            Vec topLeft = {pos.x, pos.y};
+            Vec topRight = {pos.x + rect.width, pos.y};
+            Vec bottomLeft = {pos.x, pos.y + rect.height};
+            Vec bottomRight = {pos.x + rect.width, pos.y + rect.height};
 
-        fillPercentage = constrain(fillPercentage, 0, 1);
+            Utils::drawLine(topLeft, topRight, tft, color);       // top
+            Utils::drawLine(bottomLeft, bottomRight, tft, color); // bottom
+            Utils::drawLine(topLeft, bottomLeft, tft, color);     // left
+            Utils::drawLine(topRight, bottomRight, tft, color);   // right
 
-        if (fillPercentage == 0)
-            return;
+            fillPercentage = constrain(fillPercentage, 0, 1);
 
-        const auto fillWidth = round(rect.width * fillPercentage);
+            if (fillPercentage == 0)
+                return;
 
-        drawFilled(pos, {fillWidth, rect.height}, tft, color);
-    }
+            const int fillWidth = std::round(rect.width * fillPercentage);
 
-    static void drawLine(const Vec &start, const Vec &end, Adafruit_ST7735 &tft, const uint16_t color)
-    {
-        tft.drawLine(start.x, start.y, end.x, end.y, color);
-    }
+            drawFilled(pos, {fillWidth, rect.height}, tft, color);
+        }
 
-    static void drawFilled(const Vec &pos, const Rectangle &rect, Adafruit_ST7735 &tft, const uint16_t color)
-    {
-        tft.fillRect(pos.x, pos.y, rect.width, rect.height, color);
-    }
+        static void drawFilled(const Vec &pos, const Rectangle &rect, Adafruit_ST7735 &tft, const uint16_t color)
+        {
+            tft.fillRect(pos.x, pos.y, rect.width, rect.height, color);
+        }
+    };
 };
