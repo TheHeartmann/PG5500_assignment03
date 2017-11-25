@@ -23,7 +23,7 @@ void setup()
 
     // background.lerp(ST7735_WHITE, ST7735_GREEN, 0);
 
-    tft.fillScreen(ST7735_COLMOD);
+    tft.fillScreen(ST7735_BLACK);
     //    tft.fillScreen(background.asRGB565());
 
     // rotate the screen appropriately
@@ -33,7 +33,7 @@ void setup()
     auto steps = StepScreen(tft);
     steps.render();
 
-    Drawing::Rectangle::draw({tft.width() - 20, 20}, {10, tft.height() - 30}, tft, ST7735_WHITE, .5f);
+    // Drawing::Rectangle::draw({tft.width() - 20, 20}, {10, tft.height() - 30}, tft, ST7735_WHITE, .5f);
 
     // tft.setCursor(0, 0);
     // tft.print(rgb.r)
@@ -52,17 +52,16 @@ void setup()
 void loop()
 {
     // static double i = 0;
-    // auto startColor = ST7735_RED;
-    // auto endColor = ST7735_GREEN;
+    // static double prev = i;
+    // static double delta = .01;
 
-    // background.lerp(startColor, endColor, i);
-    // tft.fillScreen(background.asRGB565());
-    // i += .1;
+    // Drawing::Rectangle::draw({tft.width() - 20, 20}, {10, tft.height() - 30}, tft, ST7735_BLACK, prev);
+    // Drawing::Rectangle::draw({tft.width() - 20, 20}, {10, tft.height() - 30}, tft, ST7735_WHITE, i);
 
-    // if (i >= 1) {
-    //     const auto temp = startColor;
-    //     startColor = endColor;
-    //     endColor = temp;
-    //     i = 0;
+    // prev = i;
+    // i += delta;
+
+    // if (i >= 1 || i <= 0) {
+    //     delta = -delta;
     // }
 }
