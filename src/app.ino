@@ -6,7 +6,7 @@
 #include "Adafruit_mfGFX.h"
 #include "Adafruit_ST7735.h"
 #include "fonts.h"
-#include "StepScreen.h"
+#include "ArticleScreen.h"
 #include "Color.h"
 #include "Rectangle.h"
 #include "Vec.h"
@@ -30,8 +30,8 @@ void setup()
     tft.setRotation(3);
     tft.setFont(CENTURY_8);
 
-    auto steps = StepScreen(tft);
-    steps.render();
+    auto article = ArticleScreen(tft, "Games");
+    article.render();
 
     // Drawing::Rectangle::draw({tft.width() - 20, 20}, {10, tft.height() - 30}, tft, ST7735_WHITE, .5f);
 

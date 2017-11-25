@@ -9,7 +9,7 @@
 
 class NewsScreen : public DisplayRect {
   public:
-    StatScreen(Adafruit_ST7735 &tft, const std::string header)
+    NewsScreen(Adafruit_ST7735 &tft, const std::string header)
         : DisplayRect(tft, {0, 0}, {tft.width(), tft.height()}),
           _header(header) {}
 
@@ -22,6 +22,8 @@ class NewsScreen : public DisplayRect {
     }
 
     const std::string _header;
-    const Drawing::Rectangle contentDimensions = {_dimensions.width, floor(_dimensions.height * (1 - HEADER_HEIGHT))};
+    const Drawing::Rectangle _contentDimensions{_dimensions.width, floor(_dimensions.height * (1 - HEADER_HEIGHT))};
+    const Drawing::Vec _contentPosition{_position.x, _position.y + floor(_dimensions.height * HEADER_HEIGHT)};
+    // const Drawing::Vec _contentPosition{_position.x, _position.y };
     uint16_t _textColor = ST7735_WHITE;
 };

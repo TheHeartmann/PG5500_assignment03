@@ -1,30 +1,25 @@
 #pragma once
 
 #include "DisplayRect.h"
+#include "Article.h"
 
-#define HEADER_HEIGHT 0.4f
+#define HEADER_HEIGHT 0.1
 
 class ArticleRect : public DisplayRect
 {
   public:
-    StatRect(Adafruit_ST7735 &tft, Drawing::Vec &position, Drawing::Rectangle &dimensions, std::string header, std::string value)
-        : DisplayRect(tft, position, dimensions), _header(header), _value(value) {}
-    StatRect(Adafruit_ST7735 &tft, Drawing::Vec &position, Drawing::Rectangle &dimensions)
-        : DisplayRect(tft, position, dimensions) {}
+    ArticleRect(Adafruit_ST7735 &tft, Drawing::Vec position, Drawing::Rectangle dimensions, Article article = DEFAULT_ARTICLE)
+        : DisplayRect(tft, position, dimensions), _article(article) {}
 
-    void render() override {
+    void render() override
+    {
         setCursorTopLeft();
         _tft->setTextSize(1);
-        write(_header);
-        _tft->setTextSize(2);
-        _tft->setCursor(_valuePos.x, _valuePos.y);
-        write(_value);
+        _tft->setTextWrap(true);
+        write(_article.title + "\n" + _article.source + " | " + _article.publishedAt + "\n" + _article.description);
     }
 
   private:
-    int _fontSizeHeader;
-    int _fontSizeContent;
-    std::string _header;
-    std::string _value;
-    Drawing::Vec _valuePos{_position.x, _position.y + floor(_dimensions.height *HEADER_HEIGHT)};
+    Article _article;
+    // Drawing::Vec _descriptionPos{_position.x, _position.y + floor(_dimensions.height *HEADER_HEIGHT)};
 };

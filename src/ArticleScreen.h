@@ -1,30 +1,23 @@
 #pragma once
 
 #include "NewsScreen.h"
+#include "ArticleRect.h"
 
-class ArticleScreen {
+class ArticleScreen : public NewsScreen
+{
   public:
-    ArticleScreen(Adafruit_ST7735 &tft, std::string category = "Placeholder")
+    ArticleScreen(Adafruit_ST7735 &tft, std::string category = "Category")
         : NewsScreen(tft, category) {}
 
     void render() override
     {
         setCursorTopLeft();
         _tft->setTextColor(_textColor);
-        // _tft->setTextSize(TFTUtils::calculateMaxFontSize(_header, _dimensions));
         _tft->setTextSize(2);
         writeHeader();
-        for (auto &i : _statRects)
-        {
-            i.render();
-        }
+        _articleRect.render();
     }
 
   protected:
-    StatRect _statRects[4] {
-        StatRect(*_tft, _dataRectPositions[0], _dataRectDimensions, "Today", "9,852"),
-        StatRect(*_tft, _dataRectPositions[1], _dataRectDimensions, "Goal", "20,000"),
-        StatRect(*_tft, _dataRectPositions[2], _dataRectDimensions, "Average", "15,000"),
-        StatRect(*_tft, _dataRectPositions[3], _dataRectDimensions, "Progress", "49%")
-    };
+    ArticleRect _articleRect = ArticleRect(*_tft, _contentPosition, _contentDimensions);
 };
