@@ -3,8 +3,10 @@
 #include "DisplayRect.h"
 #include "Headline.h"
 #include "TimeUtils.h"
+#include "StringUtils.h"
 
 #define HEADER_HEIGHT 0.1
+#define MAX_HEADLINE_LENGTH 100
 
 class HeadlineRect : public DisplayRect
 {
@@ -18,10 +20,10 @@ class HeadlineRect : public DisplayRect
         _tft->setTextSize(1);
         _tft->setTextWrap(true);
         write(TimeUtils::tmToOutputString(_headline.publishedAt) + "\n\n");
-        write(_headline.title + "\n\n");
-        // _tft->setCursor(_position.x, (_position.y + _dimensions.height) - floor(.3 * _dimensions.height));
-        write("By " + _headline.author + "\nfor " + _headline.source);
-        // write(_headline.title + "\n" + _headline.source + " | " + _headline.publishedAt + "\n" + _headline.description);
+        write(StringUtils::truncate(_headline.title, MAX_HEADLINE_LENGTH) + "\n\n");
+        write("By " + _headline.author + "\n");
+        write("for ");
+        writeDifferentColor(_headline.source + "\n\n", 0xFA63);
     }
 
   private:

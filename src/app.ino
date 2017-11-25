@@ -3,6 +3,7 @@
 #define dc D0
 #define rst NO_RST_PIN
 
+#include "ArduinoJson.h"
 #include "Adafruit_mfGFX.h"
 #include "Adafruit_ST7735.h"
 #include "fonts.h"
@@ -19,6 +20,7 @@ void setup()
 {
     // auto background = Color({255,0,255});
 
+    Particle.subscribe("hook-response/headlines_test", myHandler);
     tft.initR(INITR_BLACKTAB);
 
     // background.lerp(ST7735_WHITE, ST7735_GREEN, 0);
@@ -51,7 +53,20 @@ void setup()
 
 void loop()
 {
-    // static double i = 0;
+
+    // Get some data
+    // StaticJsonBuffer<200> buffer;
+    // JsonObject &data = buffer.createObject();
+    // data["sources"] = "bbc-news";
+    // data["apiKey"] = "6f4590c7190e4a4c87292fb463ef04f7";
+    // std::string ds;
+    // data.printTo(ds);
+    // std::string ds = "sources\\=bbc-news\\,nrk&apiKey\\=6f4590c7190e4a4c87292fb463ef04f7";
+    std::string ds = "{\"sources\" : [\"bbc-news\", \"nrk\"], \"apiKey\" : \"6f4590c7190e4a4c87292fb463ef04f7\"}";
+    // Trigger the integration
+    Particle.publish("headlines_test", ds.c_str(), PRIVATE);
+    // Wait 60 seconds
+    delay(60000);
     // static double prev = i;
     // static double delta = .01;
 
@@ -64,4 +79,10 @@ void loop()
     // if (i >= 1 || i <= 0) {
     //     delta = -delta;
     // }
+}
+
+
+void myHandler(const char *event, const char *data)
+{
+    // Handle the integration response
 }

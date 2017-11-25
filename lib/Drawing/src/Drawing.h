@@ -5,8 +5,7 @@
 #include "Vec.h"
 #include "Rectangle.h"
 
-namespace Drawing
-{
+namespace Drawing {
     class Utils
     {
     public:

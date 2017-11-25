@@ -2,6 +2,7 @@
 
 #include <string>
 #include "DisplayRect.h"
+#include "Drawing.h"
 
 #define HEADER_HEIGHT 0.2
 #define HEADER_WIDTH 0.7
@@ -19,11 +20,16 @@ class NewsScreen : public DisplayRect {
     void writeHeader()
     {
         write(_header);
+        underlineHeader();
+    }
+
+    void underlineHeader() {
+        Drawing::Utils::drawLine({_contentPosition.x, _contentPosition.y - 3}, {_contentPosition.x + _contentDimensions.width, _contentPosition.y - 3}, *_tft, 0xFA63);
+        // "#FC4F1F"
     }
 
     const std::string _header;
     const Drawing::Rectangle _contentDimensions{_dimensions.width, floor(_dimensions.height * (1 - HEADER_HEIGHT))};
     const Drawing::Vec _contentPosition{_position.x, _position.y + floor(_dimensions.height * HEADER_HEIGHT)};
     // const Drawing::Vec _contentPosition{_position.x, _position.y };
-    uint16_t _textColor = ST7735_WHITE;
 };

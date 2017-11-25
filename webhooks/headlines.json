@@ -1,0 +1,12 @@
+
+{
+        "event": "get_headlines",
+        "url": "https://newsapi.org/v2/top-headlines",
+        "query": {
+            "sources": "{{#sources}}{{.}},{{/sources}}",
+            "apiKey": "{{apiKey}}"
+        },
+        "noDefaults": true,
+        "requestType": "GET",
+        "mydevices": true
+}

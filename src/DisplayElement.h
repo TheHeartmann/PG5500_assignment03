@@ -17,6 +17,15 @@ class DisplayElement
     {
         TFTUtils::write(text, *_tft);
     }
+
+    void writeDifferentColor(const std::string text, uint16_t color)
+    {
+        _tft->setTextColor(color);
+        TFTUtils::write(text, *_tft);
+        _tft->setTextColor(_textColor);
+    }
+
+    uint16_t _textColor = ST7735_WHITE;
     Adafruit_ST7735 *_tft;
     Drawing::Vec _position;
 };
