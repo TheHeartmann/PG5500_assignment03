@@ -2,6 +2,9 @@
 
 #include "DisplayRect.h"
 
+#define HEADER_HEIGHT 0.4f
+
+#define VALUE_HEIGHT 0.6f
 class StatRect : public DisplayRect
 {
   public:
@@ -12,8 +15,11 @@ class StatRect : public DisplayRect
 
     void render() override {
         setCursorTopLeft();
-        TFTUtils::write(_header, *_tft);
-        TFTUtils::write(_value, *_tft);
+        _tft->setTextSize(1);
+        write(_header);
+        _tft->setTextSize(2);
+        _tft->setCursor(_valuePos.x, _valuePos.y);
+        write(_value);
     }
 
   private:
@@ -21,4 +27,5 @@ class StatRect : public DisplayRect
     int _fontSizeContent;
     std::string _header;
     std::string _value;
+    Drawing::Vec _valuePos{_position.x, _position.y + floor(_dimensions.height *HEADER_HEIGHT)};
 };
