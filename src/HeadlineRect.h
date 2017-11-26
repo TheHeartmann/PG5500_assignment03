@@ -19,7 +19,7 @@ class HeadlineRect : public DisplayRect
         setCursorTopLeft();
         _tft->setTextSize(1);
         _tft->setTextWrap(true);
-        write(TimeUtils::tmToOutputString(_headline.publishedAt) + "\n\n");
+        write(_headline.publishedAt + "\n\n");
         write(StringUtils::truncate(_headline.title, MAX_HEADLINE_LENGTH) + "\n\n");
         write("By " + _headline.author + "\n");
         write("for ");
