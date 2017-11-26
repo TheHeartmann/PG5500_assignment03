@@ -1,16 +1,16 @@
 # PG5500 Embedded Systems: assignment 3: Harticle Photom News Nibbles
 
-## Product description ('what is it?')
+## Product description (or 'what is it?')
 
 The Harticle Photom News Nibbles is a small device that connects to a news API and fetches the top headlines from a specified set of sources. It then displays these in a slideshow fashion on the screen, along with information on whom the source is, whom the author is, and when it was posted.
 
-### Use case (or 'why do I need this?')
+## Use case (or '... and _why_ do I need this?')
 
 Ever fallen completely out of touch with the world without the time to catch up? Ever thought you were just going to quickly check the news but ended up spending hours after 'accidentally' opening social media or finding a trail of interesting articles? Ever wanted but a quick, superficial glance at the latest movement in the world?
 
 Based completely on anecdotal evidence, I am fairly certain that at these apply to more people than just myself. Sometimes it's nice to just have a quick survey of what's going on, and I know that if I whip out my phone to start browsing, a lot of time passes very quickly. So if you're strapped for time you can read some headlines while munching down your toast, or while you're having that last cup of tea before going to bed. _That's_ what this device is for. Those little moments.
 
-### Instructions (or 'How do I ...?')
+## Instructions (or 'how do I ...?')
 
 Assuming that you have set up your Photon (see [this guide](https://docs.particle.io/guide/getting-started/start/photon/) for a quick and easy tutorial if you have not), it should be as simple as setting up the webhook and compiling and flashing the device. The API key is hardcoded into the `Settings.h` file, so you needn't worry about that unless you want to.
 
