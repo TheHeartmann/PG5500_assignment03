@@ -1,0 +1,12 @@
+{
+        "event": "slack-incoming-webhook-form",
+        "url": "https://hooks.slack.com/services/B1234567/C234567/345634563456345634563456",
+        "requestType": "POST",
+        "form": {
+            "channel": "#random",
+            "username": "ParticleBot",
+            "text": "{{PARTICLE_EVENT_VALUE}}",
+            "icon_emoji": ":spark:"
+        },
+        "mydevices": true
+}
