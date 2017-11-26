@@ -74,7 +74,7 @@ The end product is documented in [this video](https://youtu.be/n6_GtWqN1b0).
 
 ## Code
 
-The code is organised into subfolders under the `/lib` together with the external Adafruit library. Structuring it this way let me work more separated on various parts of the application and was very useful.
+The code is organised into subfolders under the `/lib` together with the external Adafruit library. Structuring it this way let me work more separated on various parts of the application and was very useful. The only files that have been left in the root `/src` folder are the ones that interact directly with the cloud or that would be unnatural to hide away somewhere else.
 
 ### Highlights
 
