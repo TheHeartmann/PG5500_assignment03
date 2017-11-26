@@ -74,10 +74,19 @@ The end product is documented in [this video](https://youtu.be/n6_GtWqN1b0).
 
 ## Code
 
+The code is organised into subfolders under the `/lib` together with the external Adafruit library. Structuring it this way let me work more separated on various parts of the application and was very useful.
+
 ### Highlights
 
+#### Inheritance and separation of concerns
+
+Overall, I am fairly pleased with the standard of the code in terms of encapsulation, separation of concerns, inversion of control, etc.
+
+While the whole DisplayElement hierarchy might seem a bit overkill for the simple way in which it was utilised, it was originally designed to support a lot more different screen and menu types--features that sadly had to be cut from the final version.
 
 #### Naive JSON parser
+
+While it is far from as complex as it could be, I am quite satisfied with the very naive JSON parser I created. I had some issues finding any external libraries for it at first, and especially libraries that could take strings in chunks that might not represent valid JSON data, so I created the very simple logic in `JsonParser.h` which let me accept strings as they arrived and shove them into the SparkJson objects when they were ready.
 
 ### Libraries
 
