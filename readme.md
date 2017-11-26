@@ -58,6 +58,8 @@ These variables return the currently active sources as well as the language para
 
 The schematics are drawn in Fritzing and are available in Fritzing, SVG, and PNG file formats. The latter because the Photon part did not show up in the SVG for whatever reason.
 
+![wiring](schematics/harticle_photom.png)
+
 The TFT screen in the schematics is not the exact same one as has been used, but the wiring corresponds to how it should be wired on an ST7735. For clarity, the connected pins are (in order top to bottom):
 
     - VCC
