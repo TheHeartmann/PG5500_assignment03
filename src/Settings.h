@@ -11,4 +11,4 @@ static const std::string PRODUCT_NAME = "Harticle Photom";
 const int CAROUSEL_RATE = 10000;
 const int UPDATE_RATE = 60000;
 
-static const std::string API_KEY = "6f4590c7190e4a4c87292fb463ef04f7";
+static const std::string API_KEY = "6f4590c7190e4a4c87292fb463ef04f7"
