@@ -11,22 +11,36 @@
 class HeadlineRect : public DisplayRect
 {
   public:
-    HeadlineRect(Adafruit_ST7735 &tft, Drawing::Vec position, Drawing::Rectangle dimensions, Headline headline = DEFAULT_HEADLINE)
-        : DisplayRect(tft, position, dimensions), _headline(headline) {}
+    HeadlineRect(Adafruit_ST7735 &tft, Drawing::Vec position, Drawing::Rectangle dimensions, const Headline &headline = ERROR_MESSAGE)
+        : DisplayRect(tft, position, dimensions), _headline(&headline) {}
 
     void render() override
+    {
+        render(_textColor, _highlightColor);
+    }
+
+    void update(const Headline &newHeadline)
+    {
+        fill(_backgroundColor);
+        // render(_backgroundColor, _backgroundColor);
+        _headline = &newHeadline;
+        render();
+    }
+
+  private:
+
+    void render(uint16_t color, uint16_t hightlightColor)
     {
         setCursorTopLeft();
         _tft->setTextSize(1);
         _tft->setTextWrap(true);
-        write(_headline.publishedAt + "\n\n");
-        write(StringUtils::truncate(_headline.title, MAX_HEADLINE_LENGTH) + "\n\n");
-        write("By " + _headline.author + "\n");
+        write(_headline->publishedAt + "\n\n", color);
+        write(StringUtils::truncate(_headline->title, MAX_HEADLINE_LENGTH) + "\n\n", color);
+        write("By " + _headline->author + "\n", color);
         write("for ");
-        writeDifferentColor(_headline.source + "\n\n", 0xFA63);
+        write(_headline->source + "\n\n", hightlightColor);
     }
 
-  private:
-    Headline _headline;
+    const Headline * _headline;
 };
 

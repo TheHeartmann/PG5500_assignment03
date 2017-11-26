@@ -4,6 +4,7 @@
 #include "Adafruit_mfGFX.h"
 #include "Adafruit_ST7735.h"
 #include "TFTUtils.h"
+#include "Settings.h"
 
 class DisplayElement
 {
@@ -18,14 +19,16 @@ class DisplayElement
         TFTUtils::write(text, *_tft);
     }
 
-    void writeDifferentColor(const std::string text, uint16_t color)
+    void write(const std::string text, uint16_t color)
     {
         _tft->setTextColor(color);
         TFTUtils::write(text, *_tft);
         _tft->setTextColor(_textColor);
     }
 
-    uint16_t _textColor = ST7735_WHITE;
+    uint16_t _textColor = TEXT_COLOR;
+    uint16_t _backgroundColor = BACKGROUND_COLOR;
+    uint16_t _highlightColor = HIGHLIGHT_COLOR;
     Adafruit_ST7735 *_tft;
     Drawing::Vec _position;
 };

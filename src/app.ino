@@ -1,3 +1,4 @@
+#pragma once
 
 #define cs A2
 #define dc D0
@@ -11,62 +12,58 @@
 #include "Color.h"
 #include "Rectangle.h"
 #include "Vec.h"
-#include "JsonString.h"
+#include "JsonParser.h"
+#include "QueryManager.h"
 
+// #include "QueryManager.h"
 Adafruit_ST7735 tft = Adafruit_ST7735(cs, dc, rst); // hardware spi
+
+HeadlineScreen display = HeadlineScreen(tft, "Headlines");
+Timer carouselTimer(carouselRate, next);
+Timer updateTimer(updateRate, update);
+QueryManager qm;
 
 void setup()
 {
-    // auto background = Color({255,0,255});
-    Serial.begin(9600);
+    Particle.variable("source_1", primarySource);
+    Particle.variable("source_2", secondarySource);
+    Particle.variable("language", language);
 
-    Particle.subscribe("hook-response/get_headlines", myHandler, MY_DEVICES);
+    carouselTimer.start();
+    updateTimer.start();
+    update();
+
+    Particle.subscribe("hook-response/get_headlines", headlineHandler, MY_DEVICES);
     tft.initR(INITR_BLACKTAB);
 
-    // background.lerp(ST7735_WHITE, ST7735_GREEN, 0);
-
     tft.fillScreen(ST7735_BLACK);
-    //    tft.fillScreen(background.asRGB565());
 
     // rotate the screen appropriately
     tft.setRotation(3);
-    tft.setFont(CENTURY_8);
+    // Sadly, this font can't deal with apostrophes or other symbols
+    // tft.setFont(CENTURY_8);
 
-    auto headline = HeadlineScreen(tft, "Headlines");
-    headline.render();
+    display.render();
 
     // Drawing::Rectangle::draw({tft.width() - 20, 20}, {10, tft.height() - 30}, tft, ST7735_WHITE, .5f);
 }
 
-void loop()
+void headlineHandler(const char *event, const char *data)
 {
-
-    // std::string ds = "{\"sources\" : [\"bbc-news\", \"ars-technica\", \"nrk\"], \"apiKey\" : \"6f4590c7190e4a4c87292fb463ef04f7\"}";
-    // std::string ds = "{\"sources\" : [\"bbc-news\", \"ars-technica\", \"the-verge\"], \"apiKey\" : \"6f4590c7190e4a4c87292fb463ef04f7\"}";
-    std::string ds = "{\"sources\" : [\"ars-technica\", \"the-verge\"], \"apiKey\" : \"6f4590c7190e4a4c87292fb463ef04f7\"}";
-    // std::string ds = "{\"sources\" : [\"nrk\", \"the-verge\"], \"apiKey\" : \"6f4590c7190e4a4c87292fb463ef04f7\"}";
-    // Trigger the integration
-    Particle.publish("get_headlines", ds.c_str(), PRIVATE);
-    // Wait 60 seconds
-    delay(30000);
+    display.headlineHandler(event, data);
 }
 
-int i = 0;
-
-void myHandler(const char *event, const char *data)
+void next()
 {
-    static JsonString js;
-    if (data)
-    {
-        js.addData(data);
-    }
-    if (js.isValid())
-    {
-        auto headlines = js.getHeadlines();
+    display.next();
+}
 
-        for (auto &i : headlines)
-        {
-            Serial.printlnf("%s: %s (%s, %s)", i.publishedAt.c_str(), i.title.c_str(), i.author.c_str(), i.source.c_str());
-        }
+void update()
+{
+    static int cycleCount = 0;
+    if (cycleCount == 0)
+    {
+        qm.update("");
     }
+    cycleCount = (cycleCount + 1) % 5;
 }

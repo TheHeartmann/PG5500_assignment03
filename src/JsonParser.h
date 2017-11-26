@@ -4,18 +4,18 @@
 #include "StringUtils.h"
 #include "Headline.h"
 #include <vector>
-// #include "SparkJson.h"
 #include <ArduinoJson.h>
 #include "TimeUtils.h"
+#include <algorithm>
 
 // a simple struct for parsing separate chunks of json data to one object.
 // does not account for potential stray brace characters in the data
-struct JsonString
+struct JsonParser
 {
   public:
-    JsonString() {}
+    JsonParser() {}
 
-    JsonString(const std::string data) { addData(data); }
+    JsonParser(const std::string data) { addData(data); }
 
     bool isValid() const { return _isValid; }
 
@@ -30,10 +30,8 @@ struct JsonString
     }
 
     // note that this clears the object to avoid parsing issues
-    // void getHeadlines()
     std::vector<Headline> getHeadlines()
     {
-        // iterate over string
         DynamicJsonBuffer buffer;
         std::vector<char> charVec(_data.begin(), _data.end());
         charVec.push_back('\0');
@@ -52,14 +50,6 @@ struct JsonString
                 const char *publishedAt = obj["publishedAt"];
                 headlines.push_back(Headline(title, source, author, publishedAt));
             }
-        }
-        else
-        {
-            headlines.push_back(Headline(
-                "Parsing the input failed. Likely due to the response being too large. Try fewer sources.",
-                "Harticle Photom",
-                "Thomas Hartmann",
-                Time.format(Time.now(), UTC_FORMAT.c_str())));
         }
         clear();
         return headlines;

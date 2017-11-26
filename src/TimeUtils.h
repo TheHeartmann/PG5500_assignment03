@@ -4,7 +4,7 @@
 #include <string>
 
 static const std::string UTC_FORMAT = "%Y-%m-%dT%TZ";
-static const std::string OUTPUT_FORMAT = "%y/%m/%d | %H:%M";
+static const std::string OUTPUT_FORMAT = "%Y/%m/%d | %H:%M";
 
 
 class TimeUtils
@@ -19,7 +19,7 @@ class TimeUtils
 
     static std::string tmToOutputString(const tm &tm)
     {
-        const int stringLength = 17;
+        const int stringLength = 19;
         char timeString[stringLength];
         std::strftime(timeString, stringLength, OUTPUT_FORMAT.c_str(), &tm);
         return std::string(timeString);

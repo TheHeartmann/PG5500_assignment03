@@ -9,7 +9,8 @@ struct Headline
 {
     const std::string title,
         source,
-        author, publishedAt;
+        author,
+        publishedAt;
 
     Headline(std::string title, std::string source, std::string author, std::string publishedAt)
         : title(title),
@@ -22,10 +23,6 @@ struct Headline
           source(StringUtils::parseJsonOutput(source)),
           author(StringUtils::parseJsonOutput(author)),
           publishedAt(StringUtils::parseTimeString(publishedAt)) {}
-
-    static std::string parseTimeString(std::string &text)
-    {
-    }
 };
 
 static const Headline DEFAULT_HEADLINE = Headline(
@@ -33,3 +30,9 @@ static const Headline DEFAULT_HEADLINE = Headline(
     "The Verge",
     "Matthew Hughes",
     "2017-11-24T17:00:00Z");
+
+static const Headline ERROR_MESSAGE = Headline(
+    "Parsing the input failed. Try again or use fewer sources if it still fails.",
+    PRODUCT_NAME.c_str(),
+    "Thomas Hartmann",
+    Time.format(Time.now(), UTC_FORMAT.c_str()));

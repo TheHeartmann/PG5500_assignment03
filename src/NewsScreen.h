@@ -11,7 +11,7 @@
 class NewsScreen : public DisplayRect {
   public:
     NewsScreen(Adafruit_ST7735 &tft, const std::string header)
-        : DisplayRect(tft, {0, 0}, {tft.width(), tft.height()}),
+        : DisplayRect(tft, {0, 0}, {tft.height(), tft.width()}), // swap width and height because the tft is turned on its side
           _header(header) {}
 
     void setTextColor(uint16_t color) { _textColor = color; }
@@ -24,12 +24,10 @@ class NewsScreen : public DisplayRect {
     }
 
     void underlineHeader() {
-        Drawing::Utils::drawLine({_contentPosition.x, _contentPosition.y - 3}, {_contentPosition.x + _contentDimensions.width, _contentPosition.y - 3}, *_tft, 0xFA63);
-        // "#FC4F1F"
+        Drawing::Utils::drawLine({_contentPosition.x, _contentPosition.y - 3}, {_contentPosition.x + _dimensions.width, _contentPosition.y - 3}, *_tft, 0xFA63);
     }
 
     const std::string _header;
     const Drawing::Rectangle _contentDimensions{_dimensions.width, floor(_dimensions.height * (1 - HEADER_HEIGHT))};
     const Drawing::Vec _contentPosition{_position.x, _position.y + floor(_dimensions.height * HEADER_HEIGHT)};
-    // const Drawing::Vec _contentPosition{_position.x, _position.y };
 };
