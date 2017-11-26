@@ -12,6 +12,11 @@ class DisplayRect : public DisplayElement
     DisplayRect(Adafruit_ST7735 &tft, Drawing::Vec position, Drawing::Rectangle dimensions)
         : DisplayElement(tft, position), _dimensions(dimensions) {}
 
+    void clear()
+    {
+        fill(_backgroundColor);
+    }
+
   protected:
     void setCursorTopLeft() {
         _tft->setCursor(_position.x, _position.y);

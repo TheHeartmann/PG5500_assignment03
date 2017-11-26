@@ -13,13 +13,16 @@
 #include "Rectangle.h"
 #include "Vec.h"
 #include "JsonParser.h"
+#include "Settings.h"
 #include "QueryManager.h"
+#include "StartupScreen.h"
 
 Adafruit_ST7735 tft = Adafruit_ST7735(cs, dc, rst); // hardware spi
 
 HeadlineScreen display = HeadlineScreen(tft, "Headlines");
-Timer carouselTimer(carouselRate, next);
-Timer updateTimer(updateRate, update);
+// auto startup = StartupScreen(tft);
+Timer carouselTimer(CAROUSEL_RATE, next);
+Timer updateTimer(UPDATE_RATE, update);
 QueryManager qm;
 
 void setup()
@@ -39,10 +42,9 @@ void setup()
 
     // rotate the screen appropriately
     tft.setRotation(3);
-    // Sadly, this font can't deal with apostrophes or other symbols
-    // tft.setFont(CENTURY_8);
 
     display.render();
+    // init();
 
     // Drawing::Rectangle::draw({tft.width() - 20, 20}, {10, tft.height() - 30}, tft, ST7735_WHITE, .5f);
 }
@@ -66,3 +68,17 @@ void update()
     }
     cycleCount = (cycleCount + 1) % 5;
 }
+
+// void init(){
+//     startup.render();
+//     initTimer.start();
+// }
+
+// void renderDisplay() {
+//     if (!display.hasData()) {
+//         return;
+//     }
+//     startup.clear();
+//     initTimer.stop();
+//     display.render();
+// }

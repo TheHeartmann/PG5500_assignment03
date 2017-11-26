@@ -66,6 +66,6 @@ class HeadlineScreen : public NewsScreen
     }
     int _nextIndex = 0;
     bool _hasData = false;
-    std::vector<Headline> _headlines{ERROR_MESSAGE};
+    std::vector<Headline> _headlines{DEFAULT_HEADLINE};
     HeadlineRect _headlineRect = HeadlineRect(*_tft, _contentPosition, _contentDimensions, _headlines[_nextIndex]);
 };

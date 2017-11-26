@@ -26,10 +26,10 @@ struct Headline
 };
 
 static const Headline DEFAULT_HEADLINE = Headline(
-    "Adam Helps is a kinder, more Canadian version of TaskRabbit",
-    "The Verge",
-    "Matthew Hughes",
-    "2017-11-24T17:00:00Z");
+    "Gathering data. Please wait ...",
+    PRODUCT_NAME.c_str(),
+    "Thomas Hartmann",
+    Time.format(Time.now(), UTC_FORMAT.c_str()));
 
 static const Headline ERROR_MESSAGE = Headline(
     "Parsing the input failed. Try again or use fewer sources if it still fails.",

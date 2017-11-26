@@ -17,7 +17,7 @@ struct JsonParser
 
     JsonParser(const std::string data) { addData(data); }
 
-    bool isValid() const { return _isValid; }
+    bool isValid() const { return _isValid && _openedBraces > 0 && _closedBraces > 0; }
 
     std::string getData() const { return _data; }
 
@@ -65,7 +65,7 @@ struct JsonParser
 
   private:
     std::string _data;
-    bool _isValid;
+    bool _isValid = false;
     size_t _openedBraces;
     size_t _closedBraces;
 };

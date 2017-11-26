@@ -4,11 +4,15 @@
 #include <vector>
 #include <algorithm>
 
-int carouselRate = 10000;
-int updateRate = 60000; // maximum allowed time
 String primarySource = "ars-technica";
 String secondarySource = "the-verge";
-String language = "en";
+String language = "";
+
+const std::vector<std::string> ACCEPTED_LANGUAGES =
+    {
+        "en",
+        "no",
+        ""};
 
 const std::vector<std::string> ACCEPTED_SOURCES =
     {
@@ -26,12 +30,18 @@ struct QueryManager
     {
         Particle.function("set_source_1", &QueryManager::setPrimarySource, this);
         Particle.function("set_source_2", &QueryManager::setSecondarySource, this);
+        Particle.function("set_language", &QueryManager::setLanguage, this);
         Particle.function("update", &QueryManager::update, this);
     }
 
     bool verifySource(const String &source)
     {
         return stringInContainer(source, ACCEPTED_SOURCES);
+    }
+
+    bool verifyLanguage(const String &lang)
+    {
+        return stringInContainer(lang, ACCEPTED_LANGUAGES);
     }
 
     bool stringInContainer(const String &text, std::vector<std::string> container)
@@ -60,6 +70,16 @@ struct QueryManager
         return 0;
     }
 
+    int setLanguage(String newLanguage)
+    {
+        if (!verifyLanguage(newLanguage))
+        {
+            return -1;
+        }
+        language = newLanguage;
+        return 0;
+    }
+
     static std::string createQuery()
     {
         std::string queryString = "{\"sources\" : [";
@@ -67,7 +87,7 @@ struct QueryManager
         queryString += "\"" + secondarySource + "\"";
         queryString += "],";
 
-        queryString += "\"apiKey\" : \"6f4590c7190e4a4c87292fb463ef04f7\"}";
+        queryString += "\"apiKey\" : \"" + API_KEY + "\"}";
 
         return queryString;
     }
