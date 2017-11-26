@@ -33,7 +33,7 @@ class HeadlineScreen : public NewsScreen
                 }
                 _nextIndex = -1;
             } else {
-                _headlines.push_back(ERROR_MESSAGE)
+                _headlines.push_back(ERROR_MESSAGE);
             }
         }
     }

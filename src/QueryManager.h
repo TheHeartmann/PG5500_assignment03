@@ -6,9 +6,8 @@
 
 int carouselRate = 10000;
 int updateRate = 60000; // maximum allowed time
-const std::string FALLBACK_SOURCE = "bbc-news";
 String primarySource = "ars-technica";
-String secondarySource = "bbc-news";
+String secondarySource = "the-verge";
 String language = "en";
 
 const std::vector<std::string> ACCEPTED_SOURCES =
@@ -63,25 +62,9 @@ struct QueryManager
 
     static std::string createQuery()
     {
-        bool hasSource = false;
         std::string queryString = "{\"sources\" : [";
-
-        if (primarySource != NULL && primarySource != "\0")
-        {
-            queryString += "\"" + primarySource + "\", ";
-            hasSource = true;
-        }
-
-        if (secondarySource != NULL && secondarySource != "\0")
-        {
-            queryString += "\"" + secondarySource + "\"";
-            hasSource = true;
-        }
-
-        if (!hasSource)
-        {
-            queryString += "\"" + FALLBACK_SOURCE + "\"";
-        }
+        queryString += "\"" + primarySource + "\", ";
+        queryString += "\"" + secondarySource + "\"";
         queryString += "],";
 
         queryString += "\"apiKey\" : \"6f4590c7190e4a4c87292fb463ef04f7\"}";

@@ -15,7 +15,6 @@
 #include "JsonParser.h"
 #include "QueryManager.h"
 
-// #include "QueryManager.h"
 Adafruit_ST7735 tft = Adafruit_ST7735(cs, dc, rst); // hardware spi
 
 HeadlineScreen display = HeadlineScreen(tft, "Headlines");
