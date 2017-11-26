@@ -3,10 +3,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-
-String primarySource = "ars-technica";
-String secondarySource = "the-verge";
-String language = "";
+#include "Settings.h"
 
 const std::vector<std::string> ACCEPTED_LANGUAGES =
     {
